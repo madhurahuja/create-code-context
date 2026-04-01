@@ -1,12 +1,16 @@
 baseURL = 'https://madhurahuja.github.io/create-claude-context/'
 languageCode = 'en-us'
 title = 'create-claude-context CLI'
-theme = 'hugo-book'
+theme = ["lotusdocs"]
+
+[module]
+  [[module.imports]]
+    path = "github.com/colinwilson/lotusdocs"
 
 [params]
-  BookTheme = 'auto'
-  BookLogo = ''
-  BookTitle = 'create-claude-context'
+  description = "A beautiful interactive CLI to quickly bootstrap Claude projects."
+  docs = "docs"
   
-[markup.goldmark.renderer]
-  unsafe = true
+[markup]
+  [markup.goldmark.renderer]
+    unsafe = true
