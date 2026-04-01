@@ -1,0 +1,3 @@
+baseURL = 'https://example.github.io/claude-bs/'
+languageCode = 'en-us'
+title = 'create-claude-context CLI'
