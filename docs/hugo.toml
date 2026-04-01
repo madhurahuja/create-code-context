@@ -1,7 +1,6 @@
 baseURL = 'https://madhurahuja.github.io/create-claude-context/'
 languageCode = 'en-us'
 title = 'create-claude-context CLI'
-theme = ["lotusdocs"]
 
 [module]
   [[module.imports]]
