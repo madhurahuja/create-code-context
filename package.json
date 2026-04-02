@@ -1,6 +1,6 @@
 {
   "name": "@madhurahuja/create-claude-context",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "publishConfig": {
     "access": "public"
   },
@@ -15,7 +15,12 @@
     "dev": "tsx src/index.ts",
     "start": "node ./dist/index.js"
   },
-  "keywords": ["claude", "ai", "cli", "bootstrap"],
+  "keywords": [
+    "claude",
+    "ai",
+    "cli",
+    "bootstrap"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
