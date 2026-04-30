@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import{Command as L}from"commander";import*as a from"@clack/prompts";import l from"picocolors";import e from"fs/promises";import t from"path";var u=`# React & Next.js Best Practices
+import{Command as Pe}from"commander";import*as n from"@clack/prompts";import i from"picocolors";import v from"fs/promises";import w from"path";import l from"path";import g from"path";var _=`# React & Next.js Best Practices
 
 ## Core Principles
 1. Use Functional Components and React Hooks exclusively.
@@ -25,7 +25,7 @@ import{Command as L}from"commander";import*as a from"@clack/prompts";import l fr
 - \`app/\` or \`pages/\`: Routing.
 - \`lib/\`: Utility functions and shared logic.
 - \`hooks/\`: Custom React hooks.
-`;var g="# Vue & Nuxt Best Practices\n\n## Core Principles\n1. Use Composition API with `<script setup>` syntax.\n2. Favor single-file components (.vue).\n3. Keep components small and modular.\n\n## State Management\n- Use `ref` and `reactive` for local component state.\n- Use Pinia for robust, type-safe global state management.\n\n## Reactivity\n- Use `computed` for derived state.\n- Use `watch` and `watchEffect` cautiously to avoid side-effects chains.\n\n## Structure\n- `components/`: Auto-imported UI components (in Nuxt).\n- `pages/`: File-based routing.\n- `composables/`: Reusable stateful logic / hooks.\n- `utils/`: Stateless helper functions.\n\n## Performance\n- Use Nuxt SSR/SSG capabilities effectively.\n- Lazy load components using `defineAsyncComponent` or Nuxt's `<Lazy...>` auto-imports.\n";var f=`# Node.js Backend Best Practices
+`;var A="# Vue & Nuxt Best Practices\n\n## Core Principles\n1. Use Composition API with `<script setup>` syntax.\n2. Favor single-file components (.vue).\n3. Keep components small and modular.\n\n## State Management\n- Use `ref` and `reactive` for local component state.\n- Use Pinia for robust, type-safe global state management.\n\n## Reactivity\n- Use `computed` for derived state.\n- Use `watch` and `watchEffect` cautiously to avoid side-effects chains.\n\n## Structure\n- `components/`: Auto-imported UI components (in Nuxt).\n- `pages/`: File-based routing.\n- `composables/`: Reusable stateful logic / hooks.\n- `utils/`: Stateless helper functions.\n\n## Performance\n- Use Nuxt SSR/SSG capabilities effectively.\n- Lazy load components using `defineAsyncComponent` or Nuxt's `<Lazy...>` auto-imports.\n";var S=`# Node.js Backend Best Practices
 
 ## Core Principles
 1. Build stateless applications for better scalability.
@@ -53,7 +53,7 @@ import{Command as L}from"commander";import*as a from"@clack/prompts";import l fr
 - \`src/services/\`: Business logic.
 - \`src/models/\`: Data schemas/entities.
 - \`src/middlewares/\`: Custom middlewares.
-`;var h=`# Python Backend Best Practices
+`;var k=`# Python Backend Best Practices
 
 ## Core Principles
 1. Adopt type hinting extensively (PEP 484).
@@ -72,7 +72,7 @@ import{Command as L}from"commander";import*as a from"@clack/prompts";import l fr
 - Use Pytest for testing instead of unittest.
 - Use Black for formatting, Ruff or Flake8 for linting.
 - Manage dependencies with an environment manager like Poetry or Pipenv.
-`;var w=`# General Project Best Practices for Claude
+`;var C=`# General Project Best Practices for Claude
 
 ## Core Guidelines
 1. Keep functions focused and deterministic.
@@ -87,7 +87,7 @@ import{Command as L}from"commander";import*as a from"@clack/prompts";import l fr
 ## Refactoring
 - Keep diffs small.
 - Extract duplicated code into reusable utility functions.
-`;var y=`# Claude Interaction Guidelines
+`;var R=`# AI Interaction Guidelines
 You are assisting with the development of this project.
 
 ## Your Responsibilities:
@@ -97,8 +97,8 @@ You are assisting with the development of this project.
 4. Provide explanations for complex architectural decisions.
 5. Emphasize testing and document security implications when relevant.
 
-When writing or editing code, strictly adhere to the guidelines provided in \`CLAUDE.md\` for the specific stack used in this project.
-`;var v=`# System Architecture
+When writing or editing code, strictly adhere to the guidelines provided in \`CONTEXT_PROMPT.md\` for the specific stack used in this project.
+`;var I=`# System Architecture
 
 ## Components
 - **Frontend/Client**: [Describe UI/Client]
@@ -113,7 +113,7 @@ When writing or editing code, strictly adhere to the guidelines provided in \`CL
 
 ## Scaling Strategy
 [Document how the system is expected to scale]
-`;var b=`# AI Guardrails & Constraints
+`;var j=`# AI Guardrails & Constraints
 
 ## Restrictions
 1. Do NOT generate code that bypassing authentication checks.
@@ -125,13 +125,13 @@ When writing or editing code, strictly adhere to the guidelines provided in \`CL
 
 ## Compliance
 - Ensure all logic complies with GDPR/CCPA data handling regulations.
-`,x=`# Persistent System Prompt
+`,E=`# Persistent System Prompt
 You are an expert AI engineer embedded into this codebase.
 
 Your primary objective is to assist the user safely, accurately, and deterministically.
 Do not make implicit assumptions about business logic. If the business logic is ambiguous, halt execution and request human clarification.
-Use the files within the \`CONTEXT/\` and \`PROMPTS/\` directories as your absolute source of truth.
-`;var T=`# Tooling & Integrations / Skills
+Use the files within the \`CONTEXT/\` and \`PROMPTS/\` directories, plus top-level policy files, as your source of truth.
+`;var U=`# Tooling & Integrations / Skills
 
 ## Available Tools / Skills
 The AI has access to the following bounded tools and specialized skills:
@@ -142,7 +142,7 @@ The AI has access to the following bounded tools and specialized skills:
 - Validate all parameters before invoking a tool.
 - Rely on context before querying externally.
 - If a complex workflow exists in the \`SKILLS/\` directory, follow those instructions precisely rather than improvising.
-`,P=`# Multi-Agent System Configuration
+`,D=`# Multi-Agent System Configuration
 
 ## Defined Agents
 1. **Router Agent**: Analyzes the initial intent and routes to sub-agents.
@@ -152,22 +152,22 @@ The AI has access to the following bounded tools and specialized skills:
 ## Responsibilities & Boundaries
 - Ensure the Coder Agent never commits without the Reviewer Agent's 'APPROVED' status.
 - Keep agent context boundaries strict to prevent token bloat.
-`,C=`# Domain Glossary
+`,N=`# Domain Glossary
 
 - **Entity X**: [Definition]
 - **Service Y**: [Definition]
-`,S=`# Architecture Decision Records (ADR)
+`,O=`# Architecture Decision Records (ADR)
 
 ## Example Decision
 **Context**: We needed a state management library.
 **Options considered**: Redux, Zustand, Context API.
 **Chosen**: Zustand
 **Consequences**: Lighter bundle size, simpler boilerplate, but fewer standard middlewares.
-`,k=`# Frequently Asked Questions
+`,L=`# Frequently Asked Questions
 
 **Q: Why do we use X instead of Y?**
 A: Because X provides better type safety and integrates with our existing ORM.
-`;var A=`# Profile Context
+`;var M=`# Profile Context
 
 **Name**: [Your Name]
 **Role**: AI/Software Engineer
@@ -176,19 +176,21 @@ A: Because X provides better type safety and integrates with our existing ORM.
 - [Experience 2]
 
 **Tone/Persona**: Professional, deeply technical, yet accommodating and clear.
-`,R=`# Visitor Intent Map
+`,$=`# Visitor Intent Map
 
 ## Potential Visitors
 1. **Recruiters**: Looking for tech stack keywords, impact metrics, and team collaboration examples.
     - *Action*: Serve concise resume highlights.
 2. **Peers/Software Engineers**: Looking for implementation details, open-source work, and architecture choices.
     - *Action*: Serve deep-dive technical explanations and GitHub links.
-`,E=`# Response Policies
+`,G=`# Response Policies
 
 - If interacting with a Recruiter: Emphasize business impact, leadership, and successful delivery.
 - If interacting with a Peer: Use highly technical terminology, share code snippets, and explain trade-offs.
 - **NEVER** invent experience or projects not listed in the \`PROFILE_CONTEXT.md\`.
-`;var I=`{
+`;function pe(t){switch(t){case"react":return _;case"vue":return A;case"node":return S;case"python":return k;default:return C}}function F(t){let e=[],o=pe(t.framework);return e.push({path:"CONTEXT_PROMPT.md",content:o}),t.generateGuidelines&&e.push({path:"AI_GUIDELINES.md",content:R}),(t.complexity==="minimal"||t.complexity==="production"||t.complexity==="portfolio"||t.complexity==="mcp-workspace")&&(e.push({path:"README.md",content:`# ${t.projectName}
+
+Automatically generated.`}),e.push({path:g.join("CONTEXT","ARCHITECTURE.md"),content:I})),(t.complexity==="production"||t.complexity==="portfolio"||t.complexity==="mcp-workspace")&&(e.push({path:"SYSTEM_PROMPT.md",content:E}),e.push({path:"GUARDRAILS.md",content:j}),e.push({path:"DECISIONS.md",content:O}),e.push({path:"FAQ.md",content:L}),e.push({path:"GLOSSARY.md",content:N}),e.push({path:"TOOLS.md",content:U}),e.push({path:"AGENTS.md",content:D}),e.push({path:g.join("SKILLS",".gitkeep"),content:""}),e.push({path:g.join("PROMPTS",".gitkeep"),content:""})),t.complexity==="portfolio"&&(e.push({path:"PROFILE_CONTEXT.md",content:M}),e.push({path:"VISITOR_INTENT_MAP.md",content:$}),e.push({path:"RESPONSE_POLICIES.md",content:G})),t.complexity==="minimal"&&e.push({path:g.join("PROMPTS",".gitkeep"),content:""}),e}var B=`{
   "mcpServers": {
     "github": {
       "type": "stdio",
@@ -207,7 +209,7 @@ A: Because X provides better type safety and integrates with our existing ORM.
       }
     }
   }
-}`,j=`{
+}`,K=`{
   "permissions": {
     "allow": [],
     "deny": []
@@ -234,21 +236,21 @@ A: Because X provides better type safety and integrates with our existing ORM.
     "MAX_THINKING_TOKENS": "10000",
     "CLAUDE_AUTOCOMPACT_PCT_OVERRIDE": "50"
   }
-}`,D=`# Review Command
+}`,z=`# Review Command
 This command invokes the Claude reviewer agent.
 
 ## Steps
 1. Read the staged git diff.
 2. Cross-reference changes against \`CLAUDE.md\` conventions.
 3. Suggest robust refactoring or explicitly state "LGTM".
-`,F=`# Test Command
+`,W=`# Test Command
 Automatically executes unit testing and logs outputs.
 
 ## Steps
 1. Run \`npm test\`.
 2. Format failing outputs.
 3. Fix failures autonomously if complexity is low.
-`,U=`name: code-reviewer
+`,V=`name: code-reviewer
 description: Validates PRs and suggests refactoring
 tools:
   - github-mcp
@@ -256,7 +258,7 @@ tools:
 capabilities:
   - execute_tests
   - read_file
-`,N=`---
+`,H=`---
 name: code-review
 description: Specialized rules for deeply analyzing structural changes
 ---
@@ -265,4 +267,109 @@ description: Specialized rules for deeply analyzing structural changes
 1. Focus on architecture boundaries.
 2. Evaluate cyclical dependencies.
 3. Ensure no secrets are leaked in test files.
-`;var O=new L;O.name("create-claude-context").description("Bootstrap a project with Claude best practices and context").version("1.0.0").action(async()=>{console.clear(),a.intro(l.bgCyan(l.black(" create-claude-context ")));let o=await a.group({name:()=>a.text({message:"What is your project named?",placeholder:"my-claude-project",validate:s=>{if(!s)return"Please enter a project name."}}),framework:()=>a.select({message:"Which framework/environment are you relying on?",options:[{value:"react",label:"React / Next.js"},{value:"vue",label:"Vue / Nuxt"},{value:"node",label:"Node.js (Backend)"},{value:"python",label:"Python (FastAPI / Flask / Django)"},{value:"other",label:"Other / Vanilla"}]}),complexity:()=>a.select({message:"What level of scaffolding do you need?",options:[{value:"basic",label:"Basic (Just CLAUDE.md)"},{value:"minimal",label:"Minimal Starter Set (Core context + Context/Prompts folders)"},{value:"production",label:"Production-Grade (Complete architecture, agents, and tooling context)"},{value:"portfolio",label:"Portfolio AI (Profile context, intent maps)"},{value:"mcp-workspace",label:"Claude Code Workspace (Full .claude folder, MCP config, Skills, Agents)"}]}),generateGuidelines:()=>a.confirm({message:"Generate general Claude usage guidelines?",initialValue:!0})},{onCancel:()=>{a.cancel("Operation cancelled."),process.exit(0)}});a.note(`Setting up Claude context for ${l.cyan(o.name)} using ${l.yellow(o.framework)} template...`,"Progress");let c=o.name,i=t.resolve(process.cwd(),c);try{await e.mkdir(i,{recursive:!0});let s=w;switch(o.framework){case"react":s=u;break;case"vue":s=g;break;case"node":s=f;break;case"python":s=h;break}if(await e.writeFile(t.join(i,"CLAUDE.md"),s,"utf-8"),o.complexity==="minimal"||o.complexity==="production"||o.complexity==="portfolio"||o.complexity==="mcp-workspace"){let r=t.join(i,"CONTEXT"),n=t.join(i,"PROMPTS");await e.mkdir(r,{recursive:!0}),await e.mkdir(n,{recursive:!0}),await e.writeFile(t.join(i,"README.md"),"# "+c+"\\n\\nAutomatically generated.","utf-8"),await e.writeFile(t.join(r,"ARCHITECTURE.md"),v,"utf-8")}if(o.complexity==="production"||o.complexity==="portfolio"||o.complexity==="mcp-workspace"){let r=t.join(i,"SKILLS");await e.mkdir(r,{recursive:!0}),await e.writeFile(t.join(i,"SYSTEM_PROMPT.md"),x,"utf-8"),await e.writeFile(t.join(i,"GUARDRAILS.md"),b,"utf-8"),await e.writeFile(t.join(i,"DECISIONS.md"),S,"utf-8"),await e.writeFile(t.join(i,"FAQ.md"),k,"utf-8"),await e.writeFile(t.join(i,"GLOSSARY.md"),C,"utf-8"),await e.writeFile(t.join(i,"TOOLS.md"),T,"utf-8"),await e.writeFile(t.join(i,"AGENTS.md"),P,"utf-8")}if(o.complexity==="portfolio"&&(await e.writeFile(t.join(i,"PROFILE_CONTEXT.md"),A,"utf-8"),await e.writeFile(t.join(i,"VISITOR_INTENT_MAP.md"),R,"utf-8"),await e.writeFile(t.join(i,"RESPONSE_POLICIES.md"),E,"utf-8")),o.complexity==="mcp-workspace"){let r=t.join(i,".claude"),n=t.join(r,"commands"),p=t.join(r,"skills"),d=t.join(p,"code-review"),m=t.join(i,"agents");await e.mkdir(r,{recursive:!0}),await e.mkdir(n,{recursive:!0}),await e.mkdir(p,{recursive:!0}),await e.mkdir(d,{recursive:!0}),await e.mkdir(m,{recursive:!0}),await e.writeFile(t.join(i,".mcp.json"),I,"utf-8"),await e.writeFile(t.join(r,"settings.json"),j,"utf-8"),await e.writeFile(t.join(n,"review.md"),D,"utf-8"),await e.writeFile(t.join(n,"test-all.md"),F,"utf-8"),await e.writeFile(t.join(d,"SKILL.md"),N,"utf-8"),await e.writeFile(t.join(m,"code-reviewer.yml"),U,"utf-8")}o.generateGuidelines&&await e.writeFile(t.join(i,".claudeprompt"),y,"utf-8")}catch(s){a.cancel(`Failed to scaffold context: ${s instanceof Error?s.message:String(s)}`),process.exit(1)}a.outro(l.green("Successfully bootstrapped Claude project!"))});O.parse(process.argv);
+`;var q=`{
+  "mcpServers": {
+    "github": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "mcp-github"],
+      "env": {
+        "GITHUB_TOKEN": "\${GITHUB_TOKEN}"
+      }
+    }
+  }
+}`,X=`{
+  "model": "gpt-4.1",
+  "temperature": 0.2,
+  "safety": {
+    "allowDestructiveCommands": false
+  },
+  "hooks": {
+    "afterWrite": ["npm run lint"]
+  }
+}`,Y=`# Review Command
+Review staged changes against project context and guardrails.
+
+## Steps
+1. Read staged git diff.
+2. Validate changes against CONTEXT_PROMPT.md and GUARDRAILS.md.
+3. Report defects and risky assumptions.
+`,Q=`# Test Command
+Run test suite and summarize outcomes.
+
+## Steps
+1. Run npm test.
+2. Summarize failing suites and error causes.
+3. Suggest minimal safe fixes.
+`,Z=`name: code-reviewer
+description: Reviews code changes and flags regressions
+tools:
+  - bash
+  - git
+capabilities:
+  - execute_tests
+  - read_file
+`,J=`---
+name: code-review
+description: Rules for architecture and risk review
+---
+
+# Code Review Protocol
+1. Focus on architectural boundaries and coupling.
+2. Catch security and privacy leaks.
+3. Call out missing tests for behavior changes.
+`;var ee=`{
+  "mcpServers": {
+    "github": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "mcp-github"],
+      "env": {
+        "GITHUB_TOKEN": "\${GITHUB_TOKEN}"
+      }
+    }
+  }
+}`,te=`{
+  "model": "gemini-2.5-pro",
+  "safetySettings": {
+    "allowCodeExecution": true,
+    "blockUnsafeContent": true
+  },
+  "hooks": {
+    "afterWrite": ["npm run lint"]
+  }
+}`,oe=`# Review Command
+Run code review with architecture and safety focus.
+
+## Steps
+1. Inspect staged changes.
+2. Compare behavior changes against project context files.
+3. Report findings ordered by severity.
+`,ie=`# Test Command
+Run project tests and present root-cause summary.
+
+## Steps
+1. Run npm test.
+2. Group failures by module.
+3. Suggest safe remediations.
+`,ne=`name: code-reviewer
+description: Reviews pull requests and test quality
+tools:
+  - bash
+  - git
+capabilities:
+  - execute_tests
+  - read_file
+`,se=`---
+name: code-review
+description: Rules for deep architectural review
+---
+
+# Code Review Protocol
+1. Validate boundary ownership and module responsibilities.
+2. Highlight security and privacy concerns.
+3. Confirm tests protect changed behavior.
+`;function h(t,e){let o=F(t);return t.complexity==="mcp-workspace"&&o.push(...e),o}var de={id:"claude",displayName:"Claude",description:"Anthropic Claude workflow and Claude Code-style workspace files.",capabilities:{workspaceAutomation:!0,mcp:!0,commands:!0,skills:!0,agents:!0},resolveArtifacts:t=>h(t,[{path:".mcp.json",content:B},{path:l.join(".claude","settings.json"),content:K},{path:l.join(".claude","commands","review.md"),content:z},{path:l.join(".claude","commands","test-all.md"),content:W},{path:l.join(".claude","skills","code-review","SKILL.md"),content:H},{path:l.join("agents","code-reviewer.yml"),content:V}])},me={id:"openai",displayName:"OpenAI (GPT)",description:"OpenAI GPT workflow with provider-scoped workspace automation files.",capabilities:{workspaceAutomation:!0,mcp:!0,commands:!0,skills:!0,agents:!0},resolveArtifacts:t=>h(t,[{path:".mcp.json",content:q},{path:l.join(".openai","settings.json"),content:X},{path:l.join(".openai","commands","review.md"),content:Y},{path:l.join(".openai","commands","test-all.md"),content:Q},{path:l.join(".openai","skills","code-review","SKILL.md"),content:J},{path:l.join("agents","code-reviewer.yml"),content:Z}])},ue={id:"gemini",displayName:"Google Gemini",description:"Gemini workflow with provider-scoped workspace automation files.",capabilities:{workspaceAutomation:!0,mcp:!0,commands:!0,skills:!0,agents:!0},resolveArtifacts:t=>h(t,[{path:".mcp.json",content:ee},{path:l.join(".gemini","settings.json"),content:te},{path:l.join(".gemini","commands","review.md"),content:oe},{path:l.join(".gemini","commands","test-all.md"),content:ie},{path:l.join(".gemini","skills","code-review","SKILL.md"),content:se},{path:l.join("agents","code-reviewer.yml"),content:ne}])};function re(){return[de,me,ue]}import ge from"fs/promises";import u from"path";import{pathToFileURL as fe}from"url";function he(t){if(!t||typeof t!="object")return!1;let e=t;return typeof e.name=="string"&&Array.isArray(e.providers)}async function y(t){try{return await ge.readdir(t)}catch{return[]}}async function ye(t){let e=u.join(t,"llm-context-plugins");return(await y(e)).filter(s=>s.endsWith(".js")||s.endsWith(".mjs")||s.endsWith(".cjs")).map(s=>u.join(e,s))}async function ve(t){let e=u.join(t,"node_modules"),o=u.join(e,"@create-llm-context"),s=(await y(e)).filter(a=>a.startsWith("create-llm-context-provider-")),r=(await y(o)).filter(a=>a.startsWith("provider-")),p=s.map(a=>a);return p.push(...r.map(a=>`@create-llm-context/${a}`)),p}async function we(t){return u.isAbsolute(t)||t.startsWith(".")?import(fe(t).href):import(t)}async function ae(t){let e=[],o=[],s=await ye(t),r=await ve(t),p=[...new Set([...s,...r])];for(let a of p)try{let d=await we(a),m=d.default??d;if(!he(m)){o.push(`Skipping plugin "${a}" because it does not export a valid ProviderPlugin.`);continue}e.push(m)}catch(d){let m=d instanceof Error?d.message:String(d);o.push(`Failed to load plugin "${a}": ${m}`)}return{plugins:e,warnings:o}}var f=class{providers=new Map;register(e){let o=e.id.trim().toLowerCase();if(!o)throw new Error("Provider id cannot be empty.");if(this.providers.has(o))throw new Error(`Provider "${e.id}" is already registered.`);this.providers.set(o,e)}registerMany(e){for(let o of e)this.register(o)}list(){return Array.from(this.providers.values())}get(e){return this.providers.get(e.trim().toLowerCase())}};async function ce(t){let e=new f;e.registerMany(re());let{plugins:o,warnings:s}=await ae(t);for(let r of o)e.registerMany(r.providers);return{registry:e,warnings:s}}var Te=["   ____                _              ____            _            _   ","  / ___|___  _ __   __| | ___        / ___|___  _ __ | |_ _____  _| |_ "," | |   / _ \\| _ \\ / _` |/ _ \\_____ | |   / _ \\| _ \\| __/ _ \\ / / __|"," | |__| (_) | | | | (_| |  __/_____| | |__| (_) | | | | ||  __/>  <| |_ ","  \\____\\___/|_| |_|\\__,_|\\___|       \\____\\___/|_| |_|\\__\\___/_/\\_\\"];function xe(t,e){let o=Math.max(0,Math.floor((e-t.length)/2));return`${" ".repeat(o)}${t}`}function be(){let t=process.stdout.columns??100,e=[i.cyan,i.blue,i.magenta,i.yellow,i.green];return Te.map((o,s)=>{let r=e[s%e.length];return r(xe(o,t))}).join(`
+`)}function _e(t){return{basic:"Basic",minimal:"Minimal Starter",production:"Production Grade",portfolio:"Portfolio AI","mcp-workspace":"Workspace Automation Suite"}[t]}async function Ae(t,e){for(let o of e){let s=w.join(t,o.path),r=w.dirname(s);await v.mkdir(r,{recursive:!0}),await v.writeFile(s,o.content,"utf-8")}}var P=new Pe;P.name("create-code-context").description("Bootstrap provider-agnostic AI context for your project").version("1.0.0").option("--provider <provider>","Provider id to use (e.g. claude, openai, gemini)").option("--list-providers","List available providers and exit").action(async()=>{let t=P.opts(),{registry:e,warnings:o}=await ce(process.cwd());if(t.listProviders){console.log("Available providers:");for(let c of e.list())console.log(`- ${c.id}: ${c.displayName} (${c.description})`);return}console.clear(),console.log(be()),n.intro(i.bgCyan(i.black(" create-code-context "))),o.length>0&&n.note(o.join(`
+`),"Plugin warnings");let s=e.list();s.length===0&&(n.cancel("No providers are available."),process.exit(1));let r=t.provider?.trim().toLowerCase();r&&!e.get(r)&&(n.cancel(`Unknown provider "${r}". Use --list-providers to inspect options.`),process.exit(1));let p=await n.group({name:()=>n.text({message:`${i.cyan("Project name")} - What is your project named?`,placeholder:"my-ai-project",validate:c=>{if(!c)return"Please enter a project name."}}),provider:()=>r||n.select({message:`${i.magenta("Provider")} - Which LLM provider do you want to scaffold for?`,options:s.map(c=>({value:c.id,label:`${c.displayName} (${c.id})`,hint:c.description}))}),framework:()=>n.select({message:`${i.yellow("Framework")} - Which framework/environment are you relying on?`,options:[{value:"react",label:"React / Next.js"},{value:"vue",label:"Vue / Nuxt"},{value:"node",label:"Node.js (Backend)"},{value:"python",label:"Python (FastAPI / Flask / Django)"},{value:"other",label:"Other / Vanilla"}]}),complexity:()=>n.select({message:`${i.green("Scaffolding")} - What level of scaffolding do you need?`,options:[{value:"basic",label:"Basic (Core context files)"},{value:"minimal",label:"Minimal Starter Set (Core context + Context/Prompts folders)"},{value:"production",label:"Production-Grade (Complete architecture, agents, and tooling context)"},{value:"portfolio",label:"Portfolio AI (Profile context, intent maps)"},{value:"mcp-workspace",label:"Workspace Automation Suite (Provider config, MCP config, Skills, Agents)"}]}),generateGuidelines:()=>n.confirm({message:`${i.blue("Guidelines")} - Generate general AI usage guidelines?`,initialValue:!0})},{onCancel:()=>{n.cancel("Operation cancelled."),process.exit(0)}});r=p.provider.toLowerCase();let a=e.get(r);a||(n.cancel(`Unable to resolve provider "${r}".`),process.exit(1)),n.note(`Setting up AI context for ${i.cyan(p.name)} using ${i.yellow(p.framework)} and ${i.magenta(a.displayName)}...`,"Progress");let d=p.name,m=w.resolve(process.cwd(),d),T=p.framework,x=p.complexity,b=p.generateGuidelines,le=[`${i.bold("Project")}       ${i.cyan(d)}`,`${i.bold("Provider")}      ${i.magenta(a.displayName)} (${a.id})`,`${i.bold("Framework")}     ${i.yellow(T)}`,`${i.bold("Scaffolding")}   ${i.green(_e(x))}`,`${i.bold("Guidelines")}    ${b?i.green("Yes"):i.red("No")}`,`${i.bold("Output path")}   ${i.dim(m)}`];n.note(le.join(`
+`),"Selection summary");try{await v.mkdir(m,{recursive:!0});let c=a.resolveArtifacts({projectName:d,framework:T,complexity:x,generateGuidelines:b});await Ae(m,c)}catch(c){n.cancel(`Failed to scaffold context: ${c instanceof Error?c.message:String(c)}`),process.exit(1)}n.outro(i.green(`Successfully bootstrapped ${a.displayName} project context!`))});P.parse(process.argv);

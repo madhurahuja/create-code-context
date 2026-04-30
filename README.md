@@ -1,97 +1,113 @@
-<p align="center">
-  <img src="https://raw.githubusercontent.com/madhurahuja/create-claude-context/main/logo.png" alt="CCC Logo" width="250" />
-</p>
+# create-code-context
 
-# create-claude-context
+Interactive CLI to scaffold AI context for multiple LLM providers.
 
-A beautiful, interactive CLI tool to quickly bootstrap Claude-supported projects with essential context markdown files based on absolute best practices. By generating `.claudeprompt` and `CLAUDE.md` files natively, you make your project strictly bound to your exact structural blueprints.
+The wizard now asks which provider to scaffold for and generates provider-agnostic core files by default, with provider-specific workspace automation files when selected.
 
-## Why use this?
-Manually writing rules and architecture context for Claude wastes time and ensures eventual architectural drift. This automated generator explicitly standardizes everything across your environments natively.
+## CLI Experience
+
+- Center-aligned ASCII CLI art banner on startup.
+- Colorful interactive prompts for each input category.
+- A final selection summary before file generation starts.
+- Clear progress and completion notes for scaffold status.
+
+## Features
+
+- Provider-aware scaffolding for built-in providers:
+  - Claude
+  - OpenAI (GPT)
+  - Google Gemini
+- Provider-agnostic core outputs:
+  - `CONTEXT_PROMPT.md`
+  - `AI_GUIDELINES.md` (optional)
+- Complexity tiers from basic to workspace automation
+- Extensible provider plugin loading
 
 ## Installation
 
-This utility operates flawlessly via `npx`, bypassing the need to litter your global dependencies.
-
-**Quick Start (Dynamic):**
-```bash
-npx create-claude-context
-```
-
-**Global Install:**
-```bash
-npm install -g create-claude-context
-```
-
-## CLI Commands
-
-The utility is designed to be fully interactive, but supports standard terminal commands for inspecting the tool:
+Run directly:
 
 ```bash
-# Launch the interactive scaffolding wizard
-create-claude-context
-
-# Display the help menu and available flags
-create-claude-context --help
-
-# Output the current installed version
-create-claude-context -V
-create-claude-context --version
+npx create-code-context
 ```
 
-*(Note: When scaffolding the **Claude Code Workspace Ecosystem** tier, our engine dynamically injects custom Claude CLI commands into your repository, such as `/review` and `/test-all`, natively registering them in your `.claude/commands/` directory!)*
+Or install globally:
 
-## Usage & Interactive Prompts
+```bash
+npm install -g @madhurahuja/create-code-context
+```
 
-Running the CLI launches a sleek `@clack/prompts` interface. There are no confusing terminal flags to memorize; simply run the command and it visually guides you through orchestration:
+## CLI usage
 
-1. **Project Name**: Defines the root directory.
-2. **Target Architecture**: React/Next.js, Vue/Nuxt, Node.js (Backend), Python, or Vanilla. This optimally shapes the generated `CLAUDE.md`.
-3. **Scaffolding Complexity**: The structural depth to inject (ranges from a single file to a complete enterprise workspace).
-4. **General Guidelines Engine**: Triggers the generation of universal Anthropic interaction schemas.
+```bash
+create-code-context
+create-code-context --help
+create-code-context --list-providers
+create-code-context --provider claude
+```
 
-## Scaffolding Tiers
+### Interactive flow
 
-The core power of this CLI lies in its ability to securely scaffold any complexity layer perfectly:
+The wizard captures these values in order:
 
-### 1. Basic Mode
-Generates a singular concise `CLAUDE.md` architecture matrix.
+1. Project name
+2. LLM provider
+3. Framework/environment
+4. Scaffolding complexity
+5. AI guideline generation
 
-### 2. Minimal Starter Set
-A well-rounded baseline for small teams.
-**Injects:**
-- `CLAUDE.md`
-- `README.md`
-- `CONTEXT/`
-- `PROMPTS/`
-- `ARCHITECTURE.md` (inside CONTEXT)
+After input collection, the CLI prints a selection summary including provider, framework, tier, and output path before writing files.
 
-### 3. Production Grade Engine
-Designed to give Claude strict enterprise rules.
-**Injects everything in Minimal, plus:**
-- `SYSTEM_PROMPT.md`
-- `GUARDRAILS.md`
-- `DECISIONS.md`
-- `FAQ.md`
-- `TOOLS.md`
-- `AGENTS.md`
-- `GLOSSARY.md`
+### Provider selection
 
-### 4. Portfolio AI
-Specifically designed to create an AI representing your personal portfolio metrics.
-**Injects everything in Production-Grade, plus:**
-- `PROFILE_CONTEXT.md`
-- `VISITOR_INTENT_MAP.md`
-- `RESPONSE_POLICIES.md`
+- Interactive mode asks for provider explicitly.
+- You can also pass `--provider <id>` for CI and scripted workflows.
 
-### 5. Claude Code Workspace Ecosystem
-Natively duplicates Anthropic's brand new CLI structural parameters for agent tooling natively parsing `.mcp.json` context pipelines.
-**Injects:**
-- `.claude/settings.json` configuring `PreToolUse` and `PostToolUse` hooks linking linter mechanics.
-- `.claude/commands/review.md` and `test-all.md` mapped string commands.
-- `.claude/skills/code-review/SKILL.md` explicit skill bounds.
-- `.mcp.json` proxy config bindings for Github and Postgres routing.
-- Advanced `agents/code-reviewer.yml` topological subagent definitions.
+## Scaffolding tiers
+
+1. `basic` - core context files.
+2. `minimal` - adds `CONTEXT/` and `PROMPTS/` baseline structure.
+3. `production` - adds system prompt, guardrails, ADRs, tools, agents, glossary, FAQ.
+4. `portfolio` - adds profile and visitor-intent policy files.
+5. `mcp-workspace` - adds provider workspace automation files (settings, commands, skills, agent, MCP config).
+
+## Plugin extensibility
+
+The CLI discovers provider plugins from:
+
+- Local folder: `./llm-context-plugins/*.js|*.mjs|*.cjs`
+- Installed packages:
+  - `create-llm-context-provider-*`
+  - `@create-llm-context/provider-*`
+
+Plugin default export shape:
+
+```ts
+import type { ProviderPlugin } from './src/types/plugin.js';
+
+const plugin: ProviderPlugin = {
+  name: 'my-provider-pack',
+  providers: [
+    {
+      id: 'my-provider',
+      displayName: 'My Provider',
+      description: 'Custom provider',
+      capabilities: {
+        workspaceAutomation: true,
+        mcp: true,
+        commands: true,
+        skills: true,
+        agents: true,
+      },
+      resolveArtifacts: ({ projectName, framework, complexity, generateGuidelines }) => [
+        { path: 'CONTEXT_PROMPT.md', content: '# Custom template' },
+      ],
+    },
+  ],
+};
+
+export default plugin;
+```
 
 ## License
 

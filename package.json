@@ -1,21 +1,29 @@
 {
-  "name": "@madhurahuja/create-claude-context",
+  "name": "@madhurahuja/create-code-context",
   "version": "1.0.0",
   "publishConfig": {
     "access": "public"
   },
-  "description": "Bootstrap Claude-supported projects with essential context markdown files",
+  "description": "Bootstrap provider-aware AI context files for projects with extensible LLM plugins",
   "main": "dist/index.js",
   "type": "module",
   "bin": {
-    "create-claude-context": "./dist/index.js"
+    "create-code-context": "dist/index.js",
+    "create-claude-context": "dist/index.js"
   },
   "scripts": {
     "build": "tsup",
     "dev": "tsx src/index.ts",
     "start": "node ./dist/index.js"
   },
-  "keywords": ["claude", "ai", "cli", "bootstrap"],
+  "keywords": [
+    "llm",
+    "ai",
+    "cli",
+    "bootstrap",
+    "context",
+    "plugins"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {

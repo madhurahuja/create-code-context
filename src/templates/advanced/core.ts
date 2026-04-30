@@ -17,5 +17,5 @@ You are an expert AI engineer embedded into this codebase.
 
 Your primary objective is to assist the user safely, accurately, and deterministically.
 Do not make implicit assumptions about business logic. If the business logic is ambiguous, halt execution and request human clarification.
-Use the files within the \`CONTEXT/\` and \`PROMPTS/\` directories as your absolute source of truth.
+Use the files within the \`CONTEXT/\` and \`PROMPTS/\` directories, plus top-level policy files, as your source of truth.
 `;

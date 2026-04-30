@@ -5,38 +5,121 @@ import * as p from '@clack/prompts';
 import pc from 'picocolors';
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import { reactTemplate } from './templates/react.js';
-import { vueTemplate } from './templates/vue.js';
-import { nodeTemplate } from './templates/node.js';
-import { pythonTemplate } from './templates/python.js';
-import { otherTemplate } from './templates/other.js';
-import { generalTemplate } from './templates/general.js';
-import { architectureTemplate } from './templates/advanced/architecture.js';
-import { guardrailsTemplate, systemPromptTemplate } from './templates/advanced/core.js';
-import { toolsTemplate, agentsTemplate, glossaryTemplate, decisionsTemplate, faqTemplate } from './templates/advanced/misc.js';
-import { profileTemplate, visitorIntentTemplate, responsePoliciesTemplate } from './templates/advanced/portfolio.js';
-import { mcpJsonTemplate, claudeSettingsTemplate, claudeCmdReviewTemplate, claudeCmdTestTemplate, claudeSubagentTemplate, claudeSkillReviewTemplate } from './templates/claude-code.js';
+import { bootstrapRuntime } from './runtime/bootstrap.js';
+import type { ComplexityTier, Framework, ScaffoldArtifact } from './types/template.js';
+
+const CLI_ART_LINES = [
+  '   ____                _              ____            _            _   ',
+  '  / ___|___  _ __   __| | ___        / ___|___  _ __ | |_ _____  _| |_ ',
+  ' | |   / _ \\| _ \\ / _` |/ _ \\_____ | |   / _ \\| _ \\| __/ _ \\ \/ / __|',
+  ' | |__| (_) | | | | (_| |  __/_____| | |__| (_) | | | | ||  __/>  <| |_ ',
+  '  \\____\\___/|_| |_|\\__,_|\\___|       \\____\\___/|_| |_|\\__\\___/_/\\_\\',
+];
+
+function centerLine(line: string, width: number): string {
+  const leftPadding = Math.max(0, Math.floor((width - line.length) / 2));
+  return `${' '.repeat(leftPadding)}${line}`;
+}
+
+function renderCliArt(): string {
+  const width = process.stdout.columns ?? 100;
+  const palette = [pc.cyan, pc.blue, pc.magenta, pc.yellow, pc.green];
+
+  return CLI_ART_LINES
+    .map((line, index) => {
+      const colorize = palette[index % palette.length];
+      return colorize(centerLine(line, width));
+    })
+    .join('\n');
+}
+
+function getComplexityLabel(tier: ComplexityTier): string {
+  const labels: Record<ComplexityTier, string> = {
+    basic: 'Basic',
+    minimal: 'Minimal Starter',
+    production: 'Production Grade',
+    portfolio: 'Portfolio AI',
+    'mcp-workspace': 'Workspace Automation Suite',
+  };
+
+  return labels[tier];
+}
+
+async function writeArtifacts(targetDir: string, artifacts: ScaffoldArtifact[]): Promise<void> {
+  for (const artifact of artifacts) {
+    const artifactPath = path.join(targetDir, artifact.path);
+    const parentDir = path.dirname(artifactPath);
+    await fs.mkdir(parentDir, { recursive: true });
+    await fs.writeFile(artifactPath, artifact.content, 'utf-8');
+  }
+}
 
 const program = new Command();
 
 program
-  .name('create-claude-context')
-  .description('Bootstrap a project with Claude best practices and context')
+  .name('create-code-context')
+  .description('Bootstrap provider-agnostic AI context for your project')
   .version('1.0.0')
+  .option('--provider <provider>', 'Provider id to use (e.g. claude, openai, gemini)')
+  .option('--list-providers', 'List available providers and exit')
   .action(async () => {
+    const options = program.opts<{ provider?: string; listProviders?: boolean }>();
+    const { registry, warnings } = await bootstrapRuntime(process.cwd());
+
+    if (options.listProviders) {
+      console.log('Available providers:');
+      for (const provider of registry.list()) {
+        console.log(`- ${provider.id}: ${provider.displayName} (${provider.description})`);
+      }
+      return;
+    }
+
     console.clear();
-    p.intro(pc.bgCyan(pc.black(' create-claude-context ')));
+    console.log(renderCliArt());
+    p.intro(pc.bgCyan(pc.black(' create-code-context ')));
+
+    if (warnings.length > 0) {
+      p.note(warnings.join('\n'), 'Plugin warnings');
+    }
+
+    const providers = registry.list();
+
+    if (providers.length === 0) {
+      p.cancel('No providers are available.');
+      process.exit(1);
+    }
+
+    let selectedProviderId = options.provider?.trim().toLowerCase();
+
+    if (selectedProviderId && !registry.get(selectedProviderId)) {
+      p.cancel(`Unknown provider \"${selectedProviderId}\". Use --list-providers to inspect options.`);
+      process.exit(1);
+    }
 
     const project = await p.group({
       name: () => p.text({
-        message: 'What is your project named?',
-        placeholder: 'my-claude-project',
+        message: `${pc.cyan('Project name')} - What is your project named?`,
+        placeholder: 'my-ai-project',
         validate: (value) => {
           if (!value) return 'Please enter a project name.';
         }
       }),
+      provider: () => {
+        if (selectedProviderId) {
+          return selectedProviderId;
+        }
+
+        return p.select({
+          message: `${pc.magenta('Provider')} - Which LLM provider do you want to scaffold for?`,
+          options: providers.map((provider) => ({
+            value: provider.id,
+            label: `${provider.displayName} (${provider.id})`,
+            hint: provider.description,
+          })),
+        });
+      },
       framework: () => p.select({
-        message: 'Which framework/environment are you relying on?',
+        message: `${pc.yellow('Framework')} - Which framework/environment are you relying on?`,
         options: [
           { value: 'react', label: 'React / Next.js' },
           { value: 'vue', label: 'Vue / Nuxt' },
@@ -46,17 +129,17 @@ program
         ]
       }),
       complexity: () => p.select({
-        message: 'What level of scaffolding do you need?',
+        message: `${pc.green('Scaffolding')} - What level of scaffolding do you need?`,
         options: [
-          { value: 'basic', label: 'Basic (Just CLAUDE.md)' },
+          { value: 'basic', label: 'Basic (Core context files)' },
           { value: 'minimal', label: 'Minimal Starter Set (Core context + Context/Prompts folders)' },
           { value: 'production', label: 'Production-Grade (Complete architecture, agents, and tooling context)' },
           { value: 'portfolio', label: 'Portfolio AI (Profile context, intent maps)' },
-          { value: 'mcp-workspace', label: 'Claude Code Workspace (Full .claude folder, MCP config, Skills, Agents)' }
+          { value: 'mcp-workspace', label: 'Workspace Automation Suite (Provider config, MCP config, Skills, Agents)' }
         ]
       }),
       generateGuidelines: () => p.confirm({
-        message: 'Generate general Claude usage guidelines?',
+        message: `${pc.blue('Guidelines')} - Generate general AI usage guidelines?`,
         initialValue: true,
       })
     }, {
@@ -66,84 +149,53 @@ program
       }
     });
 
-    p.note(`Setting up Claude context for ${pc.cyan(project.name)} using ${pc.yellow(project.framework)} template...`, 'Progress');
+    selectedProviderId = (project.provider as string).toLowerCase();
+    const selectedProvider = registry.get(selectedProviderId);
 
-    // Scaffolding logic
+    if (!selectedProvider) {
+      p.cancel(`Unable to resolve provider \"${selectedProviderId}\".`);
+      process.exit(1);
+    }
+
+    p.note(
+      `Setting up AI context for ${pc.cyan(project.name as string)} using ${pc.yellow(project.framework as string)} and ${pc.magenta(selectedProvider.displayName)}...`,
+      'Progress',
+    );
+
     const projectName = project.name as string;
     const targetDir = path.resolve(process.cwd(), projectName);
+    const framework = project.framework as Framework;
+    const complexity = project.complexity as ComplexityTier;
+    const generateGuidelines = project.generateGuidelines as boolean;
+
+    const summaryLines = [
+      `${pc.bold('Project')}       ${pc.cyan(projectName)}`,
+      `${pc.bold('Provider')}      ${pc.magenta(selectedProvider.displayName)} (${selectedProvider.id})`,
+      `${pc.bold('Framework')}     ${pc.yellow(framework)}`,
+      `${pc.bold('Scaffolding')}   ${pc.green(getComplexityLabel(complexity))}`,
+      `${pc.bold('Guidelines')}    ${generateGuidelines ? pc.green('Yes') : pc.red('No')}`,
+      `${pc.bold('Output path')}   ${pc.dim(targetDir)}`,
+    ];
+
+    p.note(summaryLines.join('\n'), 'Selection summary');
 
     try {
       await fs.mkdir(targetDir, { recursive: true });
 
-      let frameworkTemplate = otherTemplate;
-      switch (project.framework) {
-        case 'react': frameworkTemplate = reactTemplate; break;
-        case 'vue': frameworkTemplate = vueTemplate; break;
-        case 'node': frameworkTemplate = nodeTemplate; break;
-        case 'python': frameworkTemplate = pythonTemplate; break;
-      }
+      const artifacts = selectedProvider.resolveArtifacts({
+        projectName,
+        framework,
+        complexity,
+        generateGuidelines,
+      });
 
-      await fs.writeFile(path.join(targetDir, 'CLAUDE.md'), frameworkTemplate, 'utf-8');
-
-      if (project.complexity === 'minimal' || project.complexity === 'production' || project.complexity === 'portfolio' || project.complexity === 'mcp-workspace') {
-        const contextDir = path.join(targetDir, 'CONTEXT');
-        const promptsDir = path.join(targetDir, 'PROMPTS');
-        await fs.mkdir(contextDir, { recursive: true });
-        await fs.mkdir(promptsDir, { recursive: true });
-        
-        await fs.writeFile(path.join(targetDir, 'README.md'), '# ' + projectName + '\\n\\nAutomatically generated.', 'utf-8');
-        await fs.writeFile(path.join(contextDir, 'ARCHITECTURE.md'), architectureTemplate, 'utf-8');
-      }
-
-      if (project.complexity === 'production' || project.complexity === 'portfolio' || project.complexity === 'mcp-workspace') {
-        const toolsDir = path.join(targetDir, 'SKILLS');
-        await fs.mkdir(toolsDir, { recursive: true });
-
-        await fs.writeFile(path.join(targetDir, 'SYSTEM_PROMPT.md'), systemPromptTemplate, 'utf-8');
-        await fs.writeFile(path.join(targetDir, 'GUARDRAILS.md'), guardrailsTemplate, 'utf-8');
-        await fs.writeFile(path.join(targetDir, 'DECISIONS.md'), decisionsTemplate, 'utf-8');
-        await fs.writeFile(path.join(targetDir, 'FAQ.md'), faqTemplate, 'utf-8');
-        await fs.writeFile(path.join(targetDir, 'GLOSSARY.md'), glossaryTemplate, 'utf-8');
-        await fs.writeFile(path.join(targetDir, 'TOOLS.md'), toolsTemplate, 'utf-8');
-        await fs.writeFile(path.join(targetDir, 'AGENTS.md'), agentsTemplate, 'utf-8');
-      }
-
-      if (project.complexity === 'portfolio') {
-        await fs.writeFile(path.join(targetDir, 'PROFILE_CONTEXT.md'), profileTemplate, 'utf-8');
-        await fs.writeFile(path.join(targetDir, 'VISITOR_INTENT_MAP.md'), visitorIntentTemplate, 'utf-8');
-        await fs.writeFile(path.join(targetDir, 'RESPONSE_POLICIES.md'), responsePoliciesTemplate, 'utf-8');
-      }
-
-      if (project.complexity === 'mcp-workspace') {
-        const claudeDir = path.join(targetDir, '.claude');
-        const commandsDir = path.join(claudeDir, 'commands');
-        const skillsDir = path.join(claudeDir, 'skills');
-        const codeReviewSkillDir = path.join(skillsDir, 'code-review');
-        const agentsDir = path.join(targetDir, 'agents');
-
-        await fs.mkdir(claudeDir, { recursive: true });
-        await fs.mkdir(commandsDir, { recursive: true });
-        await fs.mkdir(skillsDir, { recursive: true });
-        await fs.mkdir(codeReviewSkillDir, { recursive: true });
-        await fs.mkdir(agentsDir, { recursive: true });
-
-        await fs.writeFile(path.join(targetDir, '.mcp.json'), mcpJsonTemplate, 'utf-8');
-        await fs.writeFile(path.join(claudeDir, 'settings.json'), claudeSettingsTemplate, 'utf-8');
-        await fs.writeFile(path.join(commandsDir, 'review.md'), claudeCmdReviewTemplate, 'utf-8');
-        await fs.writeFile(path.join(commandsDir, 'test-all.md'), claudeCmdTestTemplate, 'utf-8');
-        await fs.writeFile(path.join(codeReviewSkillDir, 'SKILL.md'), claudeSkillReviewTemplate, 'utf-8');
-        await fs.writeFile(path.join(agentsDir, 'code-reviewer.yml'), claudeSubagentTemplate, 'utf-8');
-      }
-
-      if (project.generateGuidelines) {
-        await fs.writeFile(path.join(targetDir, '.claudeprompt'), generalTemplate, 'utf-8');
-      }
+      await writeArtifacts(targetDir, artifacts);
     } catch (error) {
       p.cancel(`Failed to scaffold context: ${error instanceof Error ? error.message : String(error)}`);
       process.exit(1);
     }
 
-    p.outro(pc.green('Successfully bootstrapped Claude project!'));
+    p.outro(pc.green(`Successfully bootstrapped ${selectedProvider.displayName} project context!`));
   });
 
 program.parse(process.argv);

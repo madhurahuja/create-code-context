@@ -1,4 +1,4 @@
-export const generalTemplate = `# Claude Interaction Guidelines
+export const generalTemplate = `# AI Interaction Guidelines
 You are assisting with the development of this project.
 
 ## Your Responsibilities:
@@ -8,5 +8,5 @@ You are assisting with the development of this project.
 4. Provide explanations for complex architectural decisions.
 5. Emphasize testing and document security implications when relevant.
 
-When writing or editing code, strictly adhere to the guidelines provided in \`CLAUDE.md\` for the specific stack used in this project.
+When writing or editing code, strictly adhere to the guidelines provided in \`CONTEXT_PROMPT.md\` for the specific stack used in this project.
 `;
