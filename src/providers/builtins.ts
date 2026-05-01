@@ -26,6 +26,14 @@ import {
   geminiSettingsTemplate,
   geminiSkillTemplate,
 } from '../templates/providers/gemini.js';
+import {
+  unslothAgentTemplate,
+  unslothCmdReviewTemplate,
+  unslothCmdTestTemplate,
+  unslothMcpTemplate,
+  unslothSettingsTemplate,
+  unslothSkillTemplate,
+} from '../templates/providers/unsloth.js';
 
 function withWorkspaceArtifacts(
   options: ResolveScaffoldOptions,
@@ -106,6 +114,28 @@ const geminiProvider: ProviderDefinition = {
     ]),
 };
 
+const unslothProvider: ProviderDefinition = {
+  id: 'unsloth',
+  displayName: 'Unsloth',
+  description: 'Unsloth workflow for local/fine-tuned model scaffolding.',
+  capabilities: {
+    workspaceAutomation: true,
+    mcp: true,
+    commands: true,
+    skills: true,
+    agents: true,
+  },
+  resolveArtifacts: (options) =>
+    withWorkspaceArtifacts(options, [
+      { path: '.mcp.json', content: unslothMcpTemplate },
+      { path: path.join('.unsloth', 'settings.json'), content: unslothSettingsTemplate },
+      { path: path.join('.unsloth', 'commands', 'review.md'), content: unslothCmdReviewTemplate },
+      { path: path.join('.unsloth', 'commands', 'test-all.md'), content: unslothCmdTestTemplate },
+      { path: path.join('.unsloth', 'skills', 'code-review', 'SKILL.md'), content: unslothSkillTemplate },
+      { path: path.join('agents', 'code-reviewer.yml'), content: unslothAgentTemplate },
+    ]),
+};
+
 export function getBuiltInProviders(): ProviderDefinition[] {
-  return [claudeProvider, openAiProvider, geminiProvider];
+  return [claudeProvider, openAiProvider, geminiProvider, unslothProvider];
 }

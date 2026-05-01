@@ -21,6 +21,7 @@ The wizard now asks which provider to scaffold for and generates provider-agnost
   - Claude
   - OpenAI (GPT)
   - Google Gemini
+  - Unsloth
 - Provider-agnostic core outputs:
   - `CONTEXT_PROMPT.md`
   - `AI_GUIDELINES.md` (optional)

@@ -60,7 +60,7 @@ program
   .name('create-code-context')
   .description('Bootstrap provider-agnostic AI context for your project')
   .version('1.0.0')
-  .option('--provider <provider>', 'Provider id to use (e.g. claude, openai, gemini)')
+  .option('--provider <provider>', 'Provider id to use (e.g. claude, openai, gemini, unsloth)')
   .option('--list-providers', 'List available providers and exit')
   .action(async () => {
     const options = program.opts<{ provider?: string; listProviders?: boolean }>();

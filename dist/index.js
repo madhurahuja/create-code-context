@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import{Command as Pe}from"commander";import*as n from"@clack/prompts";import i from"picocolors";import v from"fs/promises";import w from"path";import l from"path";import g from"path";var _=`# React & Next.js Best Practices
+import{Command as ke}from"commander";import*as n from"@clack/prompts";import i from"picocolors";import y from"fs/promises";import w from"path";import s from"path";import g from"path";var _=`# React & Next.js Best Practices
 
 ## Core Principles
 1. Use Functional Components and React Hooks exclusively.
@@ -25,7 +25,7 @@ import{Command as Pe}from"commander";import*as n from"@clack/prompts";import i f
 - \`app/\` or \`pages/\`: Routing.
 - \`lib/\`: Utility functions and shared logic.
 - \`hooks/\`: Custom React hooks.
-`;var A="# Vue & Nuxt Best Practices\n\n## Core Principles\n1. Use Composition API with `<script setup>` syntax.\n2. Favor single-file components (.vue).\n3. Keep components small and modular.\n\n## State Management\n- Use `ref` and `reactive` for local component state.\n- Use Pinia for robust, type-safe global state management.\n\n## Reactivity\n- Use `computed` for derived state.\n- Use `watch` and `watchEffect` cautiously to avoid side-effects chains.\n\n## Structure\n- `components/`: Auto-imported UI components (in Nuxt).\n- `pages/`: File-based routing.\n- `composables/`: Reusable stateful logic / hooks.\n- `utils/`: Stateless helper functions.\n\n## Performance\n- Use Nuxt SSR/SSG capabilities effectively.\n- Lazy load components using `defineAsyncComponent` or Nuxt's `<Lazy...>` auto-imports.\n";var S=`# Node.js Backend Best Practices
+`;var S="# Vue & Nuxt Best Practices\n\n## Core Principles\n1. Use Composition API with `<script setup>` syntax.\n2. Favor single-file components (.vue).\n3. Keep components small and modular.\n\n## State Management\n- Use `ref` and `reactive` for local component state.\n- Use Pinia for robust, type-safe global state management.\n\n## Reactivity\n- Use `computed` for derived state.\n- Use `watch` and `watchEffect` cautiously to avoid side-effects chains.\n\n## Structure\n- `components/`: Auto-imported UI components (in Nuxt).\n- `pages/`: File-based routing.\n- `composables/`: Reusable stateful logic / hooks.\n- `utils/`: Stateless helper functions.\n\n## Performance\n- Use Nuxt SSR/SSG capabilities effectively.\n- Lazy load components using `defineAsyncComponent` or Nuxt's `<Lazy...>` auto-imports.\n";var A=`# Node.js Backend Best Practices
 
 ## Core Principles
 1. Build stateless applications for better scalability.
@@ -72,7 +72,7 @@ import{Command as Pe}from"commander";import*as n from"@clack/prompts";import i f
 - Use Pytest for testing instead of unittest.
 - Use Black for formatting, Ruff or Flake8 for linting.
 - Manage dependencies with an environment manager like Poetry or Pipenv.
-`;var C=`# General Project Best Practices for Claude
+`;var R=`# General Project Best Practices for Claude
 
 ## Core Guidelines
 1. Keep functions focused and deterministic.
@@ -87,7 +87,7 @@ import{Command as Pe}from"commander";import*as n from"@clack/prompts";import i f
 ## Refactoring
 - Keep diffs small.
 - Extract duplicated code into reusable utility functions.
-`;var R=`# AI Interaction Guidelines
+`;var C=`# AI Interaction Guidelines
 You are assisting with the development of this project.
 
 ## Your Responsibilities:
@@ -142,7 +142,7 @@ The AI has access to the following bounded tools and specialized skills:
 - Validate all parameters before invoking a tool.
 - Rely on context before querying externally.
 - If a complex workflow exists in the \`SKILLS/\` directory, follow those instructions precisely rather than improvising.
-`,D=`# Multi-Agent System Configuration
+`,N=`# Multi-Agent System Configuration
 
 ## Defined Agents
 1. **Router Agent**: Analyzes the initial intent and routes to sub-agents.
@@ -152,11 +152,11 @@ The AI has access to the following bounded tools and specialized skills:
 ## Responsibilities & Boundaries
 - Ensure the Coder Agent never commits without the Reviewer Agent's 'APPROVED' status.
 - Keep agent context boundaries strict to prevent token bloat.
-`,N=`# Domain Glossary
+`,O=`# Domain Glossary
 
 - **Entity X**: [Definition]
 - **Service Y**: [Definition]
-`,O=`# Architecture Decision Records (ADR)
+`,D=`# Architecture Decision Records (ADR)
 
 ## Example Decision
 **Context**: We needed a state management library.
@@ -188,9 +188,9 @@ A: Because X provides better type safety and integrates with our existing ORM.
 - If interacting with a Recruiter: Emphasize business impact, leadership, and successful delivery.
 - If interacting with a Peer: Use highly technical terminology, share code snippets, and explain trade-offs.
 - **NEVER** invent experience or projects not listed in the \`PROFILE_CONTEXT.md\`.
-`;function pe(t){switch(t){case"react":return _;case"vue":return A;case"node":return S;case"python":return k;default:return C}}function F(t){let e=[],o=pe(t.framework);return e.push({path:"CONTEXT_PROMPT.md",content:o}),t.generateGuidelines&&e.push({path:"AI_GUIDELINES.md",content:R}),(t.complexity==="minimal"||t.complexity==="production"||t.complexity==="portfolio"||t.complexity==="mcp-workspace")&&(e.push({path:"README.md",content:`# ${t.projectName}
+`;function he(e){switch(e){case"react":return _;case"vue":return S;case"node":return A;case"python":return k;default:return R}}function F(e){let t=[],o=he(e.framework);return t.push({path:"CONTEXT_PROMPT.md",content:o}),e.generateGuidelines&&t.push({path:"AI_GUIDELINES.md",content:C}),(e.complexity==="minimal"||e.complexity==="production"||e.complexity==="portfolio"||e.complexity==="mcp-workspace")&&(t.push({path:"README.md",content:`# ${e.projectName}
 
-Automatically generated.`}),e.push({path:g.join("CONTEXT","ARCHITECTURE.md"),content:I})),(t.complexity==="production"||t.complexity==="portfolio"||t.complexity==="mcp-workspace")&&(e.push({path:"SYSTEM_PROMPT.md",content:E}),e.push({path:"GUARDRAILS.md",content:j}),e.push({path:"DECISIONS.md",content:O}),e.push({path:"FAQ.md",content:L}),e.push({path:"GLOSSARY.md",content:N}),e.push({path:"TOOLS.md",content:U}),e.push({path:"AGENTS.md",content:D}),e.push({path:g.join("SKILLS",".gitkeep"),content:""}),e.push({path:g.join("PROMPTS",".gitkeep"),content:""})),t.complexity==="portfolio"&&(e.push({path:"PROFILE_CONTEXT.md",content:M}),e.push({path:"VISITOR_INTENT_MAP.md",content:$}),e.push({path:"RESPONSE_POLICIES.md",content:G})),t.complexity==="minimal"&&e.push({path:g.join("PROMPTS",".gitkeep"),content:""}),e}var B=`{
+Automatically generated.`}),t.push({path:g.join("CONTEXT","ARCHITECTURE.md"),content:I})),(e.complexity==="production"||e.complexity==="portfolio"||e.complexity==="mcp-workspace")&&(t.push({path:"SYSTEM_PROMPT.md",content:E}),t.push({path:"GUARDRAILS.md",content:j}),t.push({path:"DECISIONS.md",content:D}),t.push({path:"FAQ.md",content:L}),t.push({path:"GLOSSARY.md",content:O}),t.push({path:"TOOLS.md",content:U}),t.push({path:"AGENTS.md",content:N}),t.push({path:g.join("SKILLS",".gitkeep"),content:""}),t.push({path:g.join("PROMPTS",".gitkeep"),content:""})),e.complexity==="portfolio"&&(t.push({path:"PROFILE_CONTEXT.md",content:M}),t.push({path:"VISITOR_INTENT_MAP.md",content:$}),t.push({path:"RESPONSE_POLICIES.md",content:G})),e.complexity==="minimal"&&t.push({path:g.join("PROMPTS",".gitkeep"),content:""}),t}var B=`{
   "mcpServers": {
     "github": {
       "type": "stdio",
@@ -369,7 +369,61 @@ description: Rules for deep architectural review
 1. Validate boundary ownership and module responsibilities.
 2. Highlight security and privacy concerns.
 3. Confirm tests protect changed behavior.
-`;function h(t,e){let o=F(t);return t.complexity==="mcp-workspace"&&o.push(...e),o}var de={id:"claude",displayName:"Claude",description:"Anthropic Claude workflow and Claude Code-style workspace files.",capabilities:{workspaceAutomation:!0,mcp:!0,commands:!0,skills:!0,agents:!0},resolveArtifacts:t=>h(t,[{path:".mcp.json",content:B},{path:l.join(".claude","settings.json"),content:K},{path:l.join(".claude","commands","review.md"),content:z},{path:l.join(".claude","commands","test-all.md"),content:W},{path:l.join(".claude","skills","code-review","SKILL.md"),content:H},{path:l.join("agents","code-reviewer.yml"),content:V}])},me={id:"openai",displayName:"OpenAI (GPT)",description:"OpenAI GPT workflow with provider-scoped workspace automation files.",capabilities:{workspaceAutomation:!0,mcp:!0,commands:!0,skills:!0,agents:!0},resolveArtifacts:t=>h(t,[{path:".mcp.json",content:q},{path:l.join(".openai","settings.json"),content:X},{path:l.join(".openai","commands","review.md"),content:Y},{path:l.join(".openai","commands","test-all.md"),content:Q},{path:l.join(".openai","skills","code-review","SKILL.md"),content:J},{path:l.join("agents","code-reviewer.yml"),content:Z}])},ue={id:"gemini",displayName:"Google Gemini",description:"Gemini workflow with provider-scoped workspace automation files.",capabilities:{workspaceAutomation:!0,mcp:!0,commands:!0,skills:!0,agents:!0},resolveArtifacts:t=>h(t,[{path:".mcp.json",content:ee},{path:l.join(".gemini","settings.json"),content:te},{path:l.join(".gemini","commands","review.md"),content:oe},{path:l.join(".gemini","commands","test-all.md"),content:ie},{path:l.join(".gemini","skills","code-review","SKILL.md"),content:se},{path:l.join("agents","code-reviewer.yml"),content:ne}])};function re(){return[de,me,ue]}import ge from"fs/promises";import u from"path";import{pathToFileURL as fe}from"url";function he(t){if(!t||typeof t!="object")return!1;let e=t;return typeof e.name=="string"&&Array.isArray(e.providers)}async function y(t){try{return await ge.readdir(t)}catch{return[]}}async function ye(t){let e=u.join(t,"llm-context-plugins");return(await y(e)).filter(s=>s.endsWith(".js")||s.endsWith(".mjs")||s.endsWith(".cjs")).map(s=>u.join(e,s))}async function ve(t){let e=u.join(t,"node_modules"),o=u.join(e,"@create-llm-context"),s=(await y(e)).filter(a=>a.startsWith("create-llm-context-provider-")),r=(await y(o)).filter(a=>a.startsWith("provider-")),p=s.map(a=>a);return p.push(...r.map(a=>`@create-llm-context/${a}`)),p}async function we(t){return u.isAbsolute(t)||t.startsWith(".")?import(fe(t).href):import(t)}async function ae(t){let e=[],o=[],s=await ye(t),r=await ve(t),p=[...new Set([...s,...r])];for(let a of p)try{let d=await we(a),m=d.default??d;if(!he(m)){o.push(`Skipping plugin "${a}" because it does not export a valid ProviderPlugin.`);continue}e.push(m)}catch(d){let m=d instanceof Error?d.message:String(d);o.push(`Failed to load plugin "${a}": ${m}`)}return{plugins:e,warnings:o}}var f=class{providers=new Map;register(e){let o=e.id.trim().toLowerCase();if(!o)throw new Error("Provider id cannot be empty.");if(this.providers.has(o))throw new Error(`Provider "${e.id}" is already registered.`);this.providers.set(o,e)}registerMany(e){for(let o of e)this.register(o)}list(){return Array.from(this.providers.values())}get(e){return this.providers.get(e.trim().toLowerCase())}};async function ce(t){let e=new f;e.registerMany(re());let{plugins:o,warnings:s}=await ae(t);for(let r of o)e.registerMany(r.providers);return{registry:e,warnings:s}}var Te=["   ____                _              ____            _            _   ","  / ___|___  _ __   __| | ___        / ___|___  _ __ | |_ _____  _| |_ "," | |   / _ \\| _ \\ / _` |/ _ \\_____ | |   / _ \\| _ \\| __/ _ \\ / / __|"," | |__| (_) | | | | (_| |  __/_____| | |__| (_) | | | | ||  __/>  <| |_ ","  \\____\\___/|_| |_|\\__,_|\\___|       \\____\\___/|_| |_|\\__\\___/_/\\_\\"];function xe(t,e){let o=Math.max(0,Math.floor((e-t.length)/2));return`${" ".repeat(o)}${t}`}function be(){let t=process.stdout.columns??100,e=[i.cyan,i.blue,i.magenta,i.yellow,i.green];return Te.map((o,s)=>{let r=e[s%e.length];return r(xe(o,t))}).join(`
-`)}function _e(t){return{basic:"Basic",minimal:"Minimal Starter",production:"Production Grade",portfolio:"Portfolio AI","mcp-workspace":"Workspace Automation Suite"}[t]}async function Ae(t,e){for(let o of e){let s=w.join(t,o.path),r=w.dirname(s);await v.mkdir(r,{recursive:!0}),await v.writeFile(s,o.content,"utf-8")}}var P=new Pe;P.name("create-code-context").description("Bootstrap provider-agnostic AI context for your project").version("1.0.0").option("--provider <provider>","Provider id to use (e.g. claude, openai, gemini)").option("--list-providers","List available providers and exit").action(async()=>{let t=P.opts(),{registry:e,warnings:o}=await ce(process.cwd());if(t.listProviders){console.log("Available providers:");for(let c of e.list())console.log(`- ${c.id}: ${c.displayName} (${c.description})`);return}console.clear(),console.log(be()),n.intro(i.bgCyan(i.black(" create-code-context "))),o.length>0&&n.note(o.join(`
-`),"Plugin warnings");let s=e.list();s.length===0&&(n.cancel("No providers are available."),process.exit(1));let r=t.provider?.trim().toLowerCase();r&&!e.get(r)&&(n.cancel(`Unknown provider "${r}". Use --list-providers to inspect options.`),process.exit(1));let p=await n.group({name:()=>n.text({message:`${i.cyan("Project name")} - What is your project named?`,placeholder:"my-ai-project",validate:c=>{if(!c)return"Please enter a project name."}}),provider:()=>r||n.select({message:`${i.magenta("Provider")} - Which LLM provider do you want to scaffold for?`,options:s.map(c=>({value:c.id,label:`${c.displayName} (${c.id})`,hint:c.description}))}),framework:()=>n.select({message:`${i.yellow("Framework")} - Which framework/environment are you relying on?`,options:[{value:"react",label:"React / Next.js"},{value:"vue",label:"Vue / Nuxt"},{value:"node",label:"Node.js (Backend)"},{value:"python",label:"Python (FastAPI / Flask / Django)"},{value:"other",label:"Other / Vanilla"}]}),complexity:()=>n.select({message:`${i.green("Scaffolding")} - What level of scaffolding do you need?`,options:[{value:"basic",label:"Basic (Core context files)"},{value:"minimal",label:"Minimal Starter Set (Core context + Context/Prompts folders)"},{value:"production",label:"Production-Grade (Complete architecture, agents, and tooling context)"},{value:"portfolio",label:"Portfolio AI (Profile context, intent maps)"},{value:"mcp-workspace",label:"Workspace Automation Suite (Provider config, MCP config, Skills, Agents)"}]}),generateGuidelines:()=>n.confirm({message:`${i.blue("Guidelines")} - Generate general AI usage guidelines?`,initialValue:!0})},{onCancel:()=>{n.cancel("Operation cancelled."),process.exit(0)}});r=p.provider.toLowerCase();let a=e.get(r);a||(n.cancel(`Unable to resolve provider "${r}".`),process.exit(1)),n.note(`Setting up AI context for ${i.cyan(p.name)} using ${i.yellow(p.framework)} and ${i.magenta(a.displayName)}...`,"Progress");let d=p.name,m=w.resolve(process.cwd(),d),T=p.framework,x=p.complexity,b=p.generateGuidelines,le=[`${i.bold("Project")}       ${i.cyan(d)}`,`${i.bold("Provider")}      ${i.magenta(a.displayName)} (${a.id})`,`${i.bold("Framework")}     ${i.yellow(T)}`,`${i.bold("Scaffolding")}   ${i.green(_e(x))}`,`${i.bold("Guidelines")}    ${b?i.green("Yes"):i.red("No")}`,`${i.bold("Output path")}   ${i.dim(m)}`];n.note(le.join(`
-`),"Selection summary");try{await v.mkdir(m,{recursive:!0});let c=a.resolveArtifacts({projectName:d,framework:T,complexity:x,generateGuidelines:b});await Ae(m,c)}catch(c){n.cancel(`Failed to scaffold context: ${c instanceof Error?c.message:String(c)}`),process.exit(1)}n.outro(i.green(`Successfully bootstrapped ${a.displayName} project context!`))});P.parse(process.argv);
+`;var re=`{
+  "mcpServers": {
+    "github": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "mcp-github"],
+      "env": {
+        "GITHUB_TOKEN": "\${GITHUB_TOKEN}"
+      }
+    }
+  }
+}`,ae=`{
+  "runtime": {
+    "engine": "unsloth",
+    "mode": "local-finetuned"
+  },
+  "model": {
+    "family": "llama",
+    "quantization": "4bit"
+  },
+  "hooks": {
+    "afterWrite": ["npm run lint"]
+  }
+}`,ce=`# Review Command
+Review staged changes against project context and guardrails.
+
+## Steps
+1. Read staged git diff.
+2. Validate changes against CONTEXT_PROMPT.md and GUARDRAILS.md.
+3. Report defects and risky assumptions.
+`,le=`# Test Command
+Run tests and summarize failures for quick triage.
+
+## Steps
+1. Run npm test.
+2. Group failures by package/module.
+3. Suggest minimal safe remediations.
+`,pe=`name: code-reviewer
+description: Reviews code changes and highlights regressions
+tools:
+  - bash
+  - git
+capabilities:
+  - execute_tests
+  - read_file
+`,de=`---
+name: code-review
+description: Rules for architecture, correctness, and safety checks
+---
+
+# Code Review Protocol
+1. Validate architecture boundaries and module ownership.
+2. Catch security, privacy, and reliability risks.
+3. Confirm tests exist for behavior-changing diffs.
+`;function f(e,t){let o=F(e);return e.complexity==="mcp-workspace"&&o.push(...t),o}var ve={id:"claude",displayName:"Claude",description:"Anthropic Claude workflow and Claude Code-style workspace files.",capabilities:{workspaceAutomation:!0,mcp:!0,commands:!0,skills:!0,agents:!0},resolveArtifacts:e=>f(e,[{path:".mcp.json",content:B},{path:s.join(".claude","settings.json"),content:K},{path:s.join(".claude","commands","review.md"),content:z},{path:s.join(".claude","commands","test-all.md"),content:W},{path:s.join(".claude","skills","code-review","SKILL.md"),content:H},{path:s.join("agents","code-reviewer.yml"),content:V}])},ye={id:"openai",displayName:"OpenAI (GPT)",description:"OpenAI GPT workflow with provider-scoped workspace automation files.",capabilities:{workspaceAutomation:!0,mcp:!0,commands:!0,skills:!0,agents:!0},resolveArtifacts:e=>f(e,[{path:".mcp.json",content:q},{path:s.join(".openai","settings.json"),content:X},{path:s.join(".openai","commands","review.md"),content:Y},{path:s.join(".openai","commands","test-all.md"),content:Q},{path:s.join(".openai","skills","code-review","SKILL.md"),content:J},{path:s.join("agents","code-reviewer.yml"),content:Z}])},we={id:"gemini",displayName:"Google Gemini",description:"Gemini workflow with provider-scoped workspace automation files.",capabilities:{workspaceAutomation:!0,mcp:!0,commands:!0,skills:!0,agents:!0},resolveArtifacts:e=>f(e,[{path:".mcp.json",content:ee},{path:s.join(".gemini","settings.json"),content:te},{path:s.join(".gemini","commands","review.md"),content:oe},{path:s.join(".gemini","commands","test-all.md"),content:ie},{path:s.join(".gemini","skills","code-review","SKILL.md"),content:se},{path:s.join("agents","code-reviewer.yml"),content:ne}])},Te={id:"unsloth",displayName:"Unsloth",description:"Unsloth workflow for local/fine-tuned model scaffolding.",capabilities:{workspaceAutomation:!0,mcp:!0,commands:!0,skills:!0,agents:!0},resolveArtifacts:e=>f(e,[{path:".mcp.json",content:re},{path:s.join(".unsloth","settings.json"),content:ae},{path:s.join(".unsloth","commands","review.md"),content:ce},{path:s.join(".unsloth","commands","test-all.md"),content:le},{path:s.join(".unsloth","skills","code-review","SKILL.md"),content:de},{path:s.join("agents","code-reviewer.yml"),content:pe}])};function me(){return[ve,ye,we,Te]}import Pe from"fs/promises";import u from"path";import{pathToFileURL as xe}from"url";function be(e){if(!e||typeof e!="object")return!1;let t=e;return typeof t.name=="string"&&Array.isArray(t.providers)}async function v(e){try{return await Pe.readdir(e)}catch{return[]}}async function _e(e){let t=u.join(e,"llm-context-plugins");return(await v(t)).filter(r=>r.endsWith(".js")||r.endsWith(".mjs")||r.endsWith(".cjs")).map(r=>u.join(t,r))}async function Se(e){let t=u.join(e,"node_modules"),o=u.join(t,"@create-llm-context"),r=(await v(t)).filter(c=>c.startsWith("create-llm-context-provider-")),a=(await v(o)).filter(c=>c.startsWith("provider-")),p=r.map(c=>c);return p.push(...a.map(c=>`@create-llm-context/${c}`)),p}async function Ae(e){return u.isAbsolute(e)||e.startsWith(".")?import(xe(e).href):import(e)}async function ue(e){let t=[],o=[],r=await _e(e),a=await Se(e),p=[...new Set([...r,...a])];for(let c of p)try{let d=await Ae(c),m=d.default??d;if(!be(m)){o.push(`Skipping plugin "${c}" because it does not export a valid ProviderPlugin.`);continue}t.push(m)}catch(d){let m=d instanceof Error?d.message:String(d);o.push(`Failed to load plugin "${c}": ${m}`)}return{plugins:t,warnings:o}}var h=class{providers=new Map;register(t){let o=t.id.trim().toLowerCase();if(!o)throw new Error("Provider id cannot be empty.");if(this.providers.has(o))throw new Error(`Provider "${t.id}" is already registered.`);this.providers.set(o,t)}registerMany(t){for(let o of t)this.register(o)}list(){return Array.from(this.providers.values())}get(t){return this.providers.get(t.trim().toLowerCase())}};async function ge(e){let t=new h;t.registerMany(me());let{plugins:o,warnings:r}=await ue(e);for(let a of o)t.registerMany(a.providers);return{registry:t,warnings:r}}var Re=["   ____                _              ____            _            _   ","  / ___|___  _ __   __| | ___        / ___|___  _ __ | |_ _____  _| |_ "," | |   / _ \\| _ \\ / _` |/ _ \\_____ | |   / _ \\| _ \\| __/ _ \\ / / __|"," | |__| (_) | | | | (_| |  __/_____| | |__| (_) | | | | ||  __/>  <| |_ ","  \\____\\___/|_| |_|\\__,_|\\___|       \\____\\___/|_| |_|\\__\\___/_/\\_\\"];function Ce(e,t){let o=Math.max(0,Math.floor((t-e.length)/2));return`${" ".repeat(o)}${e}`}function Ie(){let e=process.stdout.columns??100,t=[i.cyan,i.blue,i.magenta,i.yellow,i.green];return Re.map((o,r)=>{let a=t[r%t.length];return a(Ce(o,e))}).join(`
+`)}function je(e){return{basic:"Basic",minimal:"Minimal Starter",production:"Production Grade",portfolio:"Portfolio AI","mcp-workspace":"Workspace Automation Suite"}[e]}async function Ee(e,t){for(let o of t){let r=w.join(e,o.path),a=w.dirname(r);await y.mkdir(a,{recursive:!0}),await y.writeFile(r,o.content,"utf-8")}}var T=new ke;T.name("create-code-context").description("Bootstrap provider-agnostic AI context for your project").version("1.0.0").option("--provider <provider>","Provider id to use (e.g. claude, openai, gemini, unsloth)").option("--list-providers","List available providers and exit").action(async()=>{let e=T.opts(),{registry:t,warnings:o}=await ge(process.cwd());if(e.listProviders){console.log("Available providers:");for(let l of t.list())console.log(`- ${l.id}: ${l.displayName} (${l.description})`);return}console.clear(),console.log(Ie()),n.intro(i.bgCyan(i.black(" create-code-context "))),o.length>0&&n.note(o.join(`
+`),"Plugin warnings");let r=t.list();r.length===0&&(n.cancel("No providers are available."),process.exit(1));let a=e.provider?.trim().toLowerCase();a&&!t.get(a)&&(n.cancel(`Unknown provider "${a}". Use --list-providers to inspect options.`),process.exit(1));let p=await n.group({name:()=>n.text({message:`${i.cyan("Project name")} - What is your project named?`,placeholder:"my-ai-project",validate:l=>{if(!l)return"Please enter a project name."}}),provider:()=>a||n.select({message:`${i.magenta("Provider")} - Which LLM provider do you want to scaffold for?`,options:r.map(l=>({value:l.id,label:`${l.displayName} (${l.id})`,hint:l.description}))}),framework:()=>n.select({message:`${i.yellow("Framework")} - Which framework/environment are you relying on?`,options:[{value:"react",label:"React / Next.js"},{value:"vue",label:"Vue / Nuxt"},{value:"node",label:"Node.js (Backend)"},{value:"python",label:"Python (FastAPI / Flask / Django)"},{value:"other",label:"Other / Vanilla"}]}),complexity:()=>n.select({message:`${i.green("Scaffolding")} - What level of scaffolding do you need?`,options:[{value:"basic",label:"Basic (Core context files)"},{value:"minimal",label:"Minimal Starter Set (Core context + Context/Prompts folders)"},{value:"production",label:"Production-Grade (Complete architecture, agents, and tooling context)"},{value:"portfolio",label:"Portfolio AI (Profile context, intent maps)"},{value:"mcp-workspace",label:"Workspace Automation Suite (Provider config, MCP config, Skills, Agents)"}]}),generateGuidelines:()=>n.confirm({message:`${i.blue("Guidelines")} - Generate general AI usage guidelines?`,initialValue:!0})},{onCancel:()=>{n.cancel("Operation cancelled."),process.exit(0)}});a=p.provider.toLowerCase();let c=t.get(a);c||(n.cancel(`Unable to resolve provider "${a}".`),process.exit(1)),n.note(`Setting up AI context for ${i.cyan(p.name)} using ${i.yellow(p.framework)} and ${i.magenta(c.displayName)}...`,"Progress");let d=p.name,m=w.resolve(process.cwd(),d),P=p.framework,x=p.complexity,b=p.generateGuidelines,fe=[`${i.bold("Project")}       ${i.cyan(d)}`,`${i.bold("Provider")}      ${i.magenta(c.displayName)} (${c.id})`,`${i.bold("Framework")}     ${i.yellow(P)}`,`${i.bold("Scaffolding")}   ${i.green(je(x))}`,`${i.bold("Guidelines")}    ${b?i.green("Yes"):i.red("No")}`,`${i.bold("Output path")}   ${i.dim(m)}`];n.note(fe.join(`
+`),"Selection summary");try{await y.mkdir(m,{recursive:!0});let l=c.resolveArtifacts({projectName:d,framework:P,complexity:x,generateGuidelines:b});await Ee(m,l)}catch(l){n.cancel(`Failed to scaffold context: ${l instanceof Error?l.message:String(l)}`),process.exit(1)}n.outro(i.green(`Successfully bootstrapped ${c.displayName} project context!`))});T.parse(process.argv);
